@@ -70,7 +70,7 @@
      hidden. Hold: while a viewer scrolls or selects text in the panel, or
      presses Hold, the panel keeps its page and scroll position even when the
      stage moves on; Follow (or any navigation) returns it to the stage. */
-  var holdBtn = $('hold'), heldNote = $('held');
+  var heldNote = $('held');
   var shownScene = -1, held = false, autoScroll = 0;
   function beatEls() { return now.querySelectorAll('.sp-beat'); }
   function renderPanel(i) {
@@ -98,12 +98,10 @@
     else now.scrollTop = top;
   }
   function updateHeld() {
-    holdBtn.setAttribute('aria-pressed', held ? 'true' : 'false');
-    holdBtn.textContent = held ? 'Follow stage' : 'Hold text';
-    holdBtn.classList.toggle('sp-hold--on', held);
+    now.setAttribute('data-held', held ? 'true' : 'false');
     var away = held && shownScene !== cur;
     heldNote.hidden = !away;
-    if (away) heldNote.textContent = 'Text held on page ' + (shownScene + 1) + ' · ' + T[shownScene].label + '. The stage is on page ' + (cur + 1) + '.';
+    if (away) heldNote.textContent = 'Text held on page ' + (shownScene + 1) + ' · ' + T[shownScene].label + '. The stage is on page ' + (cur + 1) + '. Show the stage’s page ›';
   }
   function hold() { if (!held) { held = true; updateHeld(); } }
   function release() {
@@ -112,7 +110,7 @@
     if (shownScene !== cur) renderPanel(cur);
     updateHeld(); shownOn = -1; renderTime();
   }
-  holdBtn.addEventListener('click', function () { if (held) release(); else hold(); });
+  heldNote.addEventListener('click', release);
   ['wheel', 'touchmove'].forEach(function (ev) { now.addEventListener(ev, hold, { passive: true }); });
   now.addEventListener('keydown', function (e) { if (/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End)$/.test(e.key)) hold(); });
   now.addEventListener('pointerdown', function (e) { if (e.target === now) hold(); });   // the scrollbar
