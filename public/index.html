@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Networks of communicating machine agents · Eric Gladstone</title>
+<meta name="description" content="An animated talk on networks of communicating machine agents: how communication changes what a group of AI agents can do and conclude, what happens to information as it moves, how such systems fail, and what the evidence supports.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Networks of communicating machine agents">
+<meta property="og:description" content="An animated talk on networks of communicating machine agents: how communication changes what a group of AI agents can do and conclude, what happens to information as it moves, how such systems fail, and what the evidence supports.">
+<meta property="og:url" content="https://communicatingagents.eric-c-gladstone.workers.dev/">
+<meta property="og:image" content="https://communicatingagents.eric-c-gladstone.workers.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="player.css">
+<style>
+  @font-face{font-family:"Geist Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url(deck/fonts/geist-latin-wght-normal.woff2) format("woff2-variations")}
+  @font-face{font-family:"Geist Mono Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url(deck/fonts/geist-mono-latin-wght-normal.woff2) format("woff2-variations")}
+  :root { --sans: "Geist Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: "Geist Mono Variable", ui-monospace, Menlo, monospace; }
+  html, body { margin: 0; background: #051521; }
+  main { max-width: 1600px; margin: 0 auto; padding: 16px; }
+  .talk-head { margin: 24px 0 28px; font-family: var(--sans); }
+  .talk-head .kicker { margin: 0 0 10px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #6FD8BE; }
+  .talk-head h1 { margin: 0 0 8px; font-size: 28px; font-weight: 600; letter-spacing: -0.015em; color: #F6FAFD; }
+  .talk-head p.meta { margin: 0; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: #9FB2C1; }
+  .sp .sp-sources ol { width: min(720px, 100%); margin: 20px auto 0; padding: 0 0 0 22px; color: var(--sp-t2); font-size: 14px; line-height: 1.55; max-height: 60vh; overflow-y: auto; }
+  .sp .sp-sources li { margin: 0 0 8px; word-break: break-word; }
+  .embed main { padding: 0 6px 0 0; }
+  html.embed, .embed body { background: transparent; }
+  .embed .talk-head, .embed .sp-full { display: none; }
+  .sp .sp-sources p { width: min(720px, 100%); margin: 16px auto 0; font-size: 14px; line-height: 1.55; color: var(--sp-muted); }
+</style>
+</head>
+<body>
+<script>if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add('embed');</script>
+<main>
+<header class="talk-head">
+  <p class="kicker">Multi-agent AI · Communication and collective behavior</p>
+  <h1>Networks of communicating machine agents</h1>
+  <p class="meta">An animated talk · press play to begin · examples marked as illustrative follow stated rules, not measurements</p>
+</header>
+<!-- PLAYER START -->
+<div class="sp" data-sp="root">
+ <div class="sp-grid">
+  <div class="sp-stage" data-sp="stage">
+    <iframe data-sp="deck" src="deck/index.html" title="Presentation: Networks of communicating machine agents" allow="fullscreen"></iframe>
+  </div>
+  <aside class="sp-now" aria-label="Reading panel">
+    <div class="sp-kicker">
+      <span data-sp="pos"></span>
+      <button type="button" class="sp-hold" data-sp="hold" aria-pressed="false" title="Keep this page's text in the panel while the stage plays on. Scrolling or selecting text in the panel does this too.">Hold text</button>
+    </div>
+    <p class="sp-held" data-sp="held" hidden></p>
+    <div class="sp-read" data-sp="now" tabindex="0" aria-label="Text for this page. The highlighted passage matches the stage."></div>
+  </aside>
+  <div class="sp-controls">
+    <div class="sp-bar" role="group" aria-label="Presentation playback">
+      <button type="button" class="sp-btn" data-sp="prev" aria-label="Previous passage" title="Previous passage">‹</button>
+      <button type="button" class="sp-btn sp-play" data-sp="play" aria-label="Play" title="Play">▶</button>
+      <button type="button" class="sp-btn" data-sp="next" aria-label="Next passage" title="Next passage">›</button>
+      <div class="sp-track" data-sp="track" aria-hidden="true"></div>
+      <span class="sp-time"><span data-sp="elapsed">0:00</span> / <span data-sp="total">0:00</span></span>
+      <label class="sp-sr" for="sp-speed">Reading speed</label>
+      <select class="sp-select sp-speed" id="sp-speed" data-sp="speed" title="Reading speed">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </div>
+    <div class="sp-where">
+      <label class="sp-sr" for="sp-jump">Jump to scene</label>
+      <select class="sp-quiet" id="sp-jump" data-sp="jump"></select>
+      <button type="button" class="sp-quiet" data-sp="restart" aria-label="Restart from the beginning">↺ Restart</button>
+      <button type="button" class="sp-quiet" data-sp="expand" aria-label="Show the slides full screen">⤢ Expand</button>
+      <span class="sp-hint">Space plays or pauses · ‹ › step passages · scroll the text to hold it</span>
+      <span class="sp-sr" data-sp="count" aria-live="polite"></span>
+    </div>
+  </div>
+  <details class="sp-full">
+    <summary>Full text of the talk</summary>
+    <section class="sp-transcript" aria-label="Full text"><div data-sp="prose"></div></section>
+  </details>
+  <details class="sp-full sp-sources">
+    <summary>Sources</summary>
+    <p>Studies are cited in the passage where their result is described. Illustrative examples follow rules stated in the talk and are not measurements. The complete transcript with citations is TRANSCRIPT.md in the project.</p>
+    <ol data-sp="sources"></ol>
+  </details>
+ </div>
+</div>
+<script src="timeline.js"></script>
+<script src="sources.js"></script>
+<script src="player.js"></script>
+<script>
+  (function () { var ol = document.querySelector('[data-sp="sources"]'); (window.SOURCES || []).forEach(function (s) { var li = document.createElement('li'); li.textContent = s; ol.appendChild(li); }); })();
+</script>
+<!-- PLAYER END -->
+</main>
+</body>
+</html>

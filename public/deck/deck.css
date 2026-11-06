@@ -1,0 +1,90 @@
+/* Deck styles. Sandia v13 / CNS deck family: one navy ground, enclosures are lines
+   with transparent interiors, mint for what is moving or in use, warm for a
+   conclusion sent without its support. Sizes are for the fixed 1920x1080 stage. */
+@font-face{font-family:"Geist Variable";font-style:normal;font-weight:100 900;font-display:block;src:url(fonts/geist-latin-wght-normal.woff2) format("woff2-variations")}
+@font-face{font-family:"Geist Variable";font-style:italic;font-weight:100 900;font-display:block;src:url(fonts/geist-latin-wght-italic.woff2) format("woff2-variations")}
+@font-face{font-family:"Geist Mono Variable";font-style:normal;font-weight:100 900;font-display:block;src:url(fonts/geist-mono-latin-wght-normal.woff2) format("woff2-variations")}
+:root{
+  --bg:#071A2B; --deep:#051521; --text:#F6FAFD; --t2:#C6D3DE; --muted:#9FB2C1;
+  --mint:#6FD8BE; --node:#D8F2FF; --edge:#6FA79B; --warm:#D9A863; --alert:#E58C7E; --blue:#8FB6EA;
+  --rule:#ffffff24; --rule-2:#ffffff42;
+  --sans:"Geist Variable",system-ui,-apple-system,sans-serif; --mono:"Geist Mono Variable",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--deep);overflow:hidden}
+body{font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#fit{position:fixed;inset:0;display:grid;place-items:center;background:var(--deep)}
+#stage{position:relative;width:1920px;height:1080px;flex:none;background:var(--bg);overflow:hidden;transform:scale(var(--k,1));transform-origin:center center}
+.hd{position:absolute;left:76px;right:76px;top:58px}
+.hd__kick{margin:0 0 14px;font-family:var(--mono);font-size:17px;letter-spacing:.19em;text-transform:uppercase;color:var(--mint);opacity:.85}
+.hd__title{margin:0;font-size:46px;line-height:1.12;font-weight:600;letter-spacing:-.015em;max-width:1640px}
+.hd__title--long{font-size:39px}
+#field{position:absolute;left:76px;top:206px;width:1768px;height:800px}
+.pg{position:absolute;inset:0}.pg[hidden]{display:none}
+.fld{display:block;width:1768px;height:800px;overflow:visible}
+.ft{position:absolute;left:76px;right:76px;bottom:24px;margin:0;font-family:var(--mono);font-size:16px;letter-spacing:.06em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ft__note{color:var(--t2)}
+.ft__src:not(:empty)::before{content:'·';margin:0 12px;color:var(--mint);opacity:.6}
+.ft__note:empty + .ft__src::before{content:none}
+.kind{position:absolute;right:76px;top:52px;margin:0;padding:7px 14px 6px;font-family:var(--mono);font-size:17px;letter-spacing:.16em;text-transform:uppercase;border:1.5px solid var(--rule-2);border-radius:4px;color:var(--t2);transition:color .4s,border-color .4s}
+.kind:empty{display:none}
+.kind--toy,.kind--sim{color:var(--mint);border-color:#6FD8BE80}
+.kind--human{color:var(--blue);border-color:#8FB6EA99}
+.kind--measured{color:var(--text);border-color:var(--text)}
+.kind--engineering{color:var(--warm);border-color:#D9A86399}
+.kind--hypothesis{color:var(--t2);border-style:dashed}
+.kind--schematic{color:var(--muted);border-color:var(--rule-2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* text in figures */
+text{font-family:var(--sans)}
+.lab{fill:var(--muted);font-family:var(--mono);font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+.lab--hi{fill:var(--mint)} .lab--warm{fill:var(--warm)} .lab--alert{fill:var(--alert)} .lab--t2{fill:var(--t2)}
+.word{fill:var(--t2);font-size:27px}
+.word--lg{fill:var(--text);font-size:34px;font-weight:500}
+.cap{fill:var(--t2);font-size:27px}
+.big{fill:var(--text);font-size:54px;font-weight:600;letter-spacing:-.01em}
+.big--hi{fill:var(--mint)} .big--warm{fill:var(--warm)}
+.nd__mark{fill:var(--text);font-family:var(--sans);font-weight:600;font-size:28px;text-anchor:middle;dominant-baseline:central}
+/* nodes */
+.nd{fill:var(--bg);stroke:var(--node);stroke-width:3;transition:none}
+.nd--ring{fill:none;stroke-width:1.6;opacity:.55}
+.nd--tool{stroke:var(--muted);stroke-width:2.4}
+.nd--human{stroke:var(--text);stroke-width:3}
+.nd--doc{stroke:var(--t2);stroke-width:2.4}
+.ag.is-A .nd{stroke:var(--mint);stroke-width:4}
+.ag.is-B .nd{stroke:var(--blue);stroke-width:4;stroke-dasharray:9 5}
+.ag.is-on .nd{stroke:var(--mint);stroke-width:4}
+.ag.is-bad .nd{stroke:var(--alert);stroke-width:4}
+.ag.is-off .nd{stroke:var(--muted);stroke-dasharray:4 6;opacity:.5}
+.ag.is-fill .nd{fill:var(--mint)}
+/* links */
+.ln{fill:none;stroke:var(--edge);stroke-width:2.4;opacity:.8}
+.ln.is-live{stroke:var(--mint);stroke-width:3.4;opacity:1}
+.ln.is-faint{opacity:.22}
+.ln.is-cut{stroke:var(--muted);stroke-dasharray:5 8;opacity:.5}
+.ln.is-bad{stroke:var(--alert);stroke-width:3.4;opacity:1}
+.ln--dash{stroke-dasharray:8 8}
+.arrowhead{fill:var(--edge)}
+.rule{stroke:var(--rule-2);stroke-width:1.4;fill:none}
+.box{fill:none;stroke:var(--rule-2);stroke-width:1.6}
+.box--hi{stroke:var(--mint)} .box--alert{stroke:var(--alert)} .box--warm{stroke:var(--warm)}
+.zone{fill:none;stroke:var(--rule-2);stroke-width:1.6;stroke-dasharray:6 8}
+.bar{fill:var(--edge)} .bar--hi{fill:var(--mint)} .bar--warm{fill:var(--warm)} .bar--mu{fill:var(--muted);opacity:.5} .bar--alert{fill:var(--alert)}
+/* message tokens: shape carries the meaning */
+.tk{filter:drop-shadow(0 0 5px rgba(111,216,190,.35))}
+.tk-ring{fill:var(--bg);stroke:var(--mint);stroke-width:3.6}
+.tk-hedge{stroke-dasharray:5 4}
+.tk-disc{fill:var(--warm)}
+.tk-core{fill:var(--node)}
+.tk-sq{fill:var(--node)}
+.tk-bad{fill:var(--bg);stroke:var(--alert);stroke-width:3.2}
+.tk-bar{stroke:var(--node);stroke-width:3.4}
+.tk-x{stroke:var(--muted);stroke-width:3.6}
+.tk-dia{fill:var(--bg);stroke:var(--alert);stroke-width:3.4}
+.tk-lab{fill:var(--text);font-family:var(--mono);font-size:22px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+.tk-lab--dark{fill:var(--bg);font-weight:600}
+.tk--conclusion{filter:drop-shadow(0 0 5px rgba(217,168,99,.35))}
+[data-em="1"]{opacity:.45!important} [data-em="0"]{opacity:.14!important}
+.tk-ring.clue-A{stroke:var(--mint)} .tk-ring.clue-B{stroke:var(--blue)}
+.tk--alert .tk-ring{stroke:var(--alert)}

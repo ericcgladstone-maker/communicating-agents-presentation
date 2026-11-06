@@ -1,0 +1,9 @@
+# Cloudflare Workers Static Assets, asset-only (no Worker script), like the other talks.
+# Deploy with:  npx wrangler deploy   (from this folder, after ./sync.sh)
+# Serves at https://communicatingagents.eric-c-gladstone.workers.dev
+name = "communicatingagents"
+compatibility_date = "2026-11-06"
+
+[assets]
+directory = "./public"
+not_found_handling = "404-page"
